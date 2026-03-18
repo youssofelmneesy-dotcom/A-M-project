@@ -4,9 +4,11 @@ import { ArrowLeft, Users, Calendar, DollarSign, TrendingUp, Scissors, BarChart3
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function AdminDashboard() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const stats = [
     { icon: Users, label: 'Total Clients', value: '2,547', change: '+12%', color: 'text-primary' },
@@ -40,7 +42,7 @@ export function AdminDashboard() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Admin Dashboard
+              {t('admin.title')}
             </span>
           </h1>
         </div>
@@ -73,16 +75,16 @@ export function AdminDashboard() {
         {/* Main Content */}
         <Tabs defaultValue="bookings" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 bg-card/50 border border-primary/20">
-            <TabsTrigger value="bookings">Bookings</TabsTrigger>
-            <TabsTrigger value="services">Services</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="bookings">{t('admin.bookings')}</TabsTrigger>
+            <TabsTrigger value="services">{t('admin.services')}</TabsTrigger>
+            <TabsTrigger value="analytics">{t('admin.analytics')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="bookings">
             <Card className="p-6 border-primary/20">
               <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
-                Recent Bookings
+                {t('admin.recentBookings')}
               </h3>
               <div className="space-y-3">
                 {recentBookings.map((booking, index) => (
@@ -111,7 +113,7 @@ export function AdminDashboard() {
             <Card className="p-6 border-primary/20">
               <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
                 <Scissors className="w-5 h-5 text-primary" />
-                Popular Services
+                {t('admin.popularServices')}
               </h3>
               <div className="space-y-4">
                 {popularServices.map((service, index) => (
@@ -140,9 +142,9 @@ export function AdminDashboard() {
           <TabsContent value="analytics">
             <Card className="p-6 border-primary/20 text-center">
               <BarChart3 className="w-16 h-16 text-primary mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Analytics Dashboard</h3>
+              <h3 className="text-xl font-bold mb-2">{t('admin.analyticsTitle')}</h3>
               <p className="text-muted-foreground mb-6">
-                Track your business performance with detailed insights
+                {t('admin.analyticsDesc')}
               </p>
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="p-4 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10">

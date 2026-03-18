@@ -1,24 +1,22 @@
 export const translations = {
-
   en: {
-
     common: {
       back: "Back",
       save: "Save",
       cancel: "Cancel",
       bookNow: "Book Now",
       claim: "Claim",
-      learnMore: "Learn More"
+      learnMore: "Learn More",
     },
 
     splash: {
       brand: "BARBERSHOP",
-      subtitle: "Premium Grooming"
+      subtitle: "Premium Grooming",
     },
 
     language: {
       title: "Choose Language",
-      subtitle: "Select your preferred language"
+      subtitle: "Select your preferred language",
     },
 
     entry: {
@@ -27,7 +25,8 @@ export const translations = {
       signup: "Sign Up",
       signupDesc: "Create your account",
       login: "Log In",
-      loginDesc: "Access your account"
+      loginDesc: "Access your account",
+      disclaimer: "By continuing, you agree to our Terms & Privacy Policy",
     },
 
     home: {
@@ -37,26 +36,74 @@ export const translations = {
       aiDesc: "How can I help you today?",
       happyClients: "Happy Clients",
       satisfaction: "Satisfaction",
-      barbers: "Expert Barbers"
+      barbers: "Expert Barbers",
+      menu: "Menu",
+      privacy: "Privacy Policy",
+      help: "Help Center",
+      support: "Contact Support",
+      logout: "Log Out",
+      member: "Member",
+      guest: "Guest",
+      editProfile: "Edit Profile",
+      rewards: "Rewards",
+      specialOffers: "Special Offers",
+      inviteFriends: "Invite Friends",
+      quickBooking: "Quick Booking",
+      vipOffers: "VIP Offers",
+      skinCare: "Skin Care",
+      beardGrooming: "Beard Grooming",
+      hairTreatment: "Hair Treatment",
+      instantBooking: "Instant Booking",
+      instantBookingDesc: "Book your appointment now",
+      availableServices: "Available Services",
+      availableServicesDesc: "Explore our premium services",
+      customerGalleryDesc: "View transformations",
+      currentOffers: "Current Offers",
+      currentOffersDesc: "Special deals for you",
+      vipMembership: "VIP Membership",
+      vipMembershipDesc: "Exclusive benefits",
     },
 
     services: {
       title: "Our Services",
       firstTime: "First Time Customer?",
-      firstOffer: "Get 20% off on your first service"
+      firstOffer: "Get 20% off on your first service",
+      categories: ["Haircuts", "Beard", "Treatments", "Skincare", "VIP"],
+      serviceItems: {
+        haircut: "Classic Haircut",
+        premiumFade: "Premium Fade",
+        mullet: "Mullet",
+        beardTrim: "Beard Trim",
+        beardGrooming: "Beard Grooming",
+        protein: "Hair Protein Treatment",
+        coloring: "Hair Coloring",
+        skinCleaning: "Skin Cleaning",
+        faceCare: "Face Care Package",
+        vipPackage: "VIP Grooming Package",
+        platinum: "Platinum Package",
+      },
     },
 
     offers: {
       title: "Special Offers",
       deals: "Exclusive Deals",
       save: "Save on premium grooming services",
-      valid: "Valid until"
+      valid: "Valid until",
+      claim: "Claim",
+      promoCode: "Promo Code",
+      wantMore: "Want More Offers?",
+      joinVip: "Join our VIP membership for exclusive year-round discounts",
+      exploreMemberships: "Explore Memberships",
     },
 
     membership: {
       title: "VIP Membership",
       choose: "Choose Your Tier",
-      benefits: "Unlock exclusive benefits"
+      benefits: "Unlock exclusive benefits",
+      popular: "Most Popular",
+      getStarted: "Get Started",
+      includeTitle: "All Memberships Include",
+      includeDesc: "Access to loyalty rewards program, exclusive seasonal offers, and premium customer support",
     },
 
     profile: {
@@ -66,11 +113,18 @@ export const translations = {
       name: "Full Name",
       email: "Email",
       phone: "Phone",
-      location: "Location"
+      location: "Location",
+      member: "Member",
+      guest: "Guest",
+      bookings: "Bookings",
+      points: "Points",
+      rewards: "Rewards",
+      saveChanges: "Save Changes",
     },
 
     gallery: {
-      title: "Customer Gallery"
+      title: "Customer Gallery",
+      items: ["Classic Fade", "Beard Grooming", "Hair Transformation"],
     },
 
     booking: {
@@ -78,30 +132,52 @@ export const translations = {
       selectService: "Select Service",
       selectBarber: "Select Barber",
       selectDate: "Select Date",
-      selectTime: "Select Time"
-    }
+      selectTime: "Select Time",
+      appointment: "Book Appointment",
+      chooseBarber: "Choose Your Barber",
+      chooseTime: "Choose Time",
+      confirm: "Confirm Booking",
+      service: "Service",
+      barber: "Barber",
+      date: "Date",
+      time: "Time",
+      loginToConfirm: "Please log in to confirm your booking.",
+      completeSteps: "Please complete all booking steps first.",
+      confirmed: "Booking confirmed! Check your calendar.",
+      saved: "Your appointment has been saved.",
+      saveFailed: "Unable to save booking right now. Please try again.",
+    },
 
+    admin: {
+      title: "Admin Dashboard",
+      bookings: "Bookings",
+      services: "Services",
+      analytics: "Analytics",
+      recentBookings: "Recent Bookings",
+      popularServices: "Popular Services",
+      analyticsTitle: "Analytics Dashboard",
+      analyticsDesc: "Track your business performance with detailed insights",
+    },
   },
 
   ar: {
-
     common: {
       back: "رجوع",
       save: "حفظ",
       cancel: "إلغاء",
       bookNow: "احجز الآن",
       claim: "استخدم العرض",
-      learnMore: "اعرف أكثر"
+      learnMore: "اعرف أكثر",
     },
 
     splash: {
       brand: "صالون الحلاقة",
-      subtitle: "عناية فاخرة"
+      subtitle: "عناية فاخرة",
     },
 
     language: {
       title: "اختر اللغة",
-      subtitle: "اختر لغتك المفضلة"
+      subtitle: "اختر لغتك المفضلة",
     },
 
     entry: {
@@ -110,7 +186,8 @@ export const translations = {
       signup: "إنشاء حساب",
       signupDesc: "أنشئ حسابك",
       login: "تسجيل الدخول",
-      loginDesc: "ادخل إلى حسابك"
+      loginDesc: "ادخل إلى حسابك",
+      disclaimer: "بمتابعة الاستخدام، أنت توافق على الشروط وسياسة الخصوصية",
     },
 
     home: {
@@ -120,40 +197,95 @@ export const translations = {
       aiDesc: "كيف أساعدك اليوم؟",
       happyClients: "عميل سعيد",
       satisfaction: "رضا العملاء",
-      barbers: "حلاق محترف"
+      barbers: "حلاق محترف",
+      menu: "القائمة",
+      privacy: "سياسة الخصوصية",
+      help: "مركز المساعدة",
+      support: "تواصل مع الدعم",
+      logout: "تسجيل الخروج",
+      member: "عضو",
+      guest: "ضيف",
+      editProfile: "تعديل الملف الشخصي",
+      rewards: "المكافآت",
+      specialOffers: "العروض الخاصة",
+      inviteFriends: "ادعُ أصدقاءك",
+      quickBooking: "حجز سريع",
+      vipOffers: "عروض VIP",
+      skinCare: "العناية بالبشرة",
+      beardGrooming: "تهذيب اللحية",
+      hairTreatment: "علاج الشعر",
+      instantBooking: "حجز فوري",
+      instantBookingDesc: "احجز موعدك الآن",
+      availableServices: "الخدمات المتاحة",
+      availableServicesDesc: "استكشف خدماتنا المميزة",
+      customerGalleryDesc: "شاهد النتائج والتحولات",
+      currentOffers: "العروض الحالية",
+      currentOffersDesc: "خصومات مميزة لك",
+      vipMembership: "عضوية VIP",
+      vipMembershipDesc: "مزايا حصرية",
     },
 
     services: {
-      title: "الخدمات",
+      title: "خدماتنا",
       firstTime: "أول زيارة؟",
-      firstOffer: "احصل على خصم 20٪ على أول خدمة"
+      firstOffer: "احصل على خصم 20٪ على أول خدمة",
+      categories: ["قص الشعر", "اللحية", "العلاجات", "العناية بالبشرة", "VIP"],
+      serviceItems: {
+        haircut: "قصّة كلاسيكية",
+        premiumFade: "فيدر احترافي",
+        mullet: "موليت",
+        beardTrim: "تهذيب اللحية",
+        beardGrooming: "العناية باللحية",
+        protein: "علاج بروتين للشعر",
+        coloring: "صبغة الشعر",
+        skinCleaning: "تنظيف البشرة",
+        faceCare: "باقة العناية بالوجه",
+        vipPackage: "باقة VIP للعناية",
+        platinum: "باقة بلاتينيوم",
+      },
     },
 
     offers: {
       title: "العروض الخاصة",
       deals: "عروض حصرية",
-      save: "وفر في خدمات العناية",
-      valid: "صالح حتى"
+      save: "وفر في خدمات العناية المميزة",
+      valid: "صالح حتى",
+      claim: "استخدم العرض",
+      promoCode: "رمز الخصم",
+      wantMore: "تريد عروض أكثر؟",
+      joinVip: "انضم لعضوية VIP للحصول على خصومات حصرية طوال العام",
+      exploreMemberships: "استكشف العضويات",
     },
 
     membership: {
       title: "العضوية المميزة",
-      choose: "اختر الباقة",
-      benefits: "مزايا حصرية"
+      choose: "اختر باقتك",
+      benefits: "افتح مزايا حصرية",
+      popular: "الأكثر طلبًا",
+      getStarted: "ابدأ الآن",
+      includeTitle: "كل العضويات تشمل",
+      includeDesc: "الوصول لبرنامج الولاء، عروض موسمية حصرية، ودعم عملاء مميز",
     },
 
     profile: {
       title: "الملف الشخصي",
       edit: "تعديل الملف",
       personal: "المعلومات الشخصية",
-      name: "الاسم",
+      name: "الاسم الكامل",
       email: "البريد الإلكتروني",
       phone: "رقم الهاتف",
-      location: "الموقع"
+      location: "الموقع",
+      member: "عضو",
+      guest: "ضيف",
+      bookings: "الحجوزات",
+      points: "النقاط",
+      rewards: "المكافآت",
+      saveChanges: "حفظ التغييرات",
     },
 
     gallery: {
-      title: "معرض العملاء"
+      title: "معرض العملاء",
+      items: ["قَصّة كلاسيكية", "تهذيب اللحية", "تحول كامل للشعر"],
     },
 
     booking: {
@@ -161,9 +293,31 @@ export const translations = {
       selectService: "اختر الخدمة",
       selectBarber: "اختر الحلاق",
       selectDate: "اختر التاريخ",
-      selectTime: "اختر الوقت"
-    }
+      selectTime: "اختر الوقت",
+      appointment: "حجز موعد",
+      chooseBarber: "اختر الحلاق المناسب",
+      chooseTime: "اختر الوقت",
+      confirm: "تأكيد الحجز",
+      service: "الخدمة",
+      barber: "الحلاق",
+      date: "التاريخ",
+      time: "الوقت",
+      loginToConfirm: "يرجى تسجيل الدخول لتأكيد الحجز.",
+      completeSteps: "يرجى إكمال كل خطوات الحجز أولاً.",
+      confirmed: "تم تأكيد الحجز! راجع التقويم.",
+      saved: "تم حفظ موعدك بنجاح.",
+      saveFailed: "تعذر حفظ الحجز الآن. حاول مرة أخرى.",
+    },
 
-  }
-
+    admin: {
+      title: "لوحة التحكم",
+      bookings: "الحجوزات",
+      services: "الخدمات",
+      analytics: "التحليلات",
+      recentBookings: "أحدث الحجوزات",
+      popularServices: "الخدمات الأكثر طلبًا",
+      analyticsTitle: "لوحة التحليلات",
+      analyticsDesc: "تابع أداء نشاطك بتفاصيل دقيقة",
+    },
+  },
 };

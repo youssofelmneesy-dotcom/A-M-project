@@ -4,29 +4,31 @@ import { useNavigate } from 'react-router';
 import { UserPlus, LogIn, UserCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function EntryScreen() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const options = [
     {
       icon: UserCircle,
-      title: 'Continue as Guest',
-      description: 'Browse without signing in',
+      title: t('entry.guest'),
+      description: t('entry.guestDesc'),
       action: () => navigate('/home'),
       gradient: 'from-accent/20 to-accent/10',
     },
     {
       icon: UserPlus,
-      title: 'Sign Up',
-      description: 'Create your account',
+      title: t('entry.signup'),
+      description: t('entry.signupDesc'),
       action: () => navigate('/signup'),
       gradient: 'from-primary/20 to-primary/10',
     },
     {
       icon: LogIn,
-      title: 'Log In',
-      description: 'Access your account',
+      title: t('entry.login'),
+      description: t('entry.loginDesc'),
       action: () => navigate('/login'),
       gradient: 'from-secondary/40 to-secondary/20',
     },
@@ -132,7 +134,7 @@ export function EntryScreen() {
           transition={{ delay: 0.8 }}
         >
           <p className="text-xs text-muted-foreground">
-            By continuing, you agree to our Terms & Privacy Policy
+            {t('entry.disclaimer')}
           </p>
         </motion.div>
       </motion.div>

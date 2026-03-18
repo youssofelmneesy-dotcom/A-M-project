@@ -2,13 +2,14 @@
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-import { Lock, User, Chrome,  } from 'lucide-react';
+import { Lock, User, Chrome } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
 import { auth, googleProvider } from '../firebase'; // Firebase imports
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useLanguage } from '../translation/LanguageContex';
 
 
 // ترجمات الموقع بالإنجليزي والعربي
@@ -45,7 +46,7 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const lang = (localStorage.getItem('language') || 'en') as 'en' | 'ar';
+  const { lang } = useLanguage();
   const t = translations[lang];
 
   const handleEmailLogin = async () => {
@@ -61,6 +62,20 @@ export function LoginPage() {
     try {
       await signInWithPopup(auth, googleProvider);
       navigate('/home');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) {
+      setError('Please enter your email first.');
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setError('Password reset email sent. Please check your inbox.');
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -82,10 +97,10 @@ export function LoginPage() {
         <div className="text-center mb-8">
           <motion.h1 className="text-3xl font-bold mb-2" initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Welcome Back
+              {t.welcome}
             </span>
           </motion.h1>
-          <p className="text-muted-foreground">Sign in to your account</p>
+          <p className="text-muted-foreground">{t.signIn}</p>
         </div>
 
 
@@ -116,7 +131,7 @@ export function LoginPage() {
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <form className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-foreground">Email</Label>
+              <Label htmlFor="email" className="text-foreground">{t.email}</Label>
               <div className="relative mt-1.5">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input
@@ -131,7 +146,7 @@ export function LoginPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-foreground">Password</Label>
+              <Label htmlFor="password" className="text-foreground">{t.password}</Label>
               <div className="relative mt-1.5">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input
@@ -148,10 +163,10 @@ export function LoginPage() {
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="rounded border-primary/30" />
-                <span className="text-muted-foreground">Remember me</span>
+                <span className="text-muted-foreground">{t.rememberMe}</span>
               </label>
-              <button type="button" className="text-primary hover:underline">
-                Forgot password?
+              <button type="button" className="text-primary hover:underline" onClick={handleResetPassword}>
+                {t.forgotPassword}
               </button>
             </div>
 
@@ -160,7 +175,7 @@ export function LoginPage() {
               onClick={handleEmailLogin}
               className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground mt-6"
             >
-              Log In
+              {t.logIn}
             </Button>
           </form>
         </Card>
@@ -169,12 +184,12 @@ export function LoginPage() {
         {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-sm text-muted-foreground">
-            Don't have an account?{' '}
+            {t.noAccount}{' '}
             <button
               onClick={() => navigate('/signup')}
               className="text-primary hover:underline font-medium"
             >
-              Sign Up
+              {t.signUp}
             </button>
           </p>
         </div>

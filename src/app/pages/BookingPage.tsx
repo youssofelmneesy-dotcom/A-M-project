@@ -7,9 +7,15 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Calendar } from '../components/ui/calendar';
 import { toast } from 'sonner';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useAuth } from '../auth';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function BookingPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { t } = useLanguage();
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState('');
   const [selectedBarber, setSelectedBarber] = useState('');
@@ -17,12 +23,12 @@ export function BookingPage() {
   const [selectedTime, setSelectedTime] = useState('');
 
   const services = [
-    { id: 'haircut', name: 'Haircut', price: '$35', duration: '30 min' },
-    { id: 'beard', name: 'Beard Trim', price: '$25', duration: '20 min' },
+    { id: 'haircut', name: t('services.serviceItems.haircut'), price: '$35', duration: '30 min' },
+    { id: 'beard', name: t('services.serviceItems.beardTrim'), price: '$25', duration: '20 min' },
     { id: 'combo', name: 'Hair + Beard', price: '$55', duration: '50 min' },
     { id: 'styling', name: 'Hair Styling', price: '$45', duration: '40 min' },
-    { id: 'treatment', name: 'Hair Treatment', price: '$80', duration: '60 min' },
-    { id: 'coloring', name: 'Hair Coloring', price: '$120', duration: '90 min' },
+    { id: 'treatment', name: t('services.serviceItems.protein'), price: '$80', duration: '60 min' },
+    { id: 'coloring', name: t('services.serviceItems.coloring'), price: '$120', duration: '90 min' },
   ];
 
   const barbers = [
@@ -44,11 +50,42 @@ export function BookingPage() {
 
 
 
-  const confirmBooking = () => {
-    toast.success('Booking confirmed! Check your calendar.', {
-      description: 'We sent you a confirmation email.',
-    });
-    setTimeout(() => navigate('/home'), 2000);
+  const confirmBooking = async () => {
+    if (!user) {
+      toast.error(t('booking.loginToConfirm'));
+      navigate('/login');
+      return;
+    }
+
+    if (!selectedService || !selectedBarber || !selectedDate || !selectedTime) {
+      toast.error(t('booking.completeSteps'));
+      return;
+    }
+
+    const selectedServiceData = services.find((service) => service.id === selectedService);
+    const selectedBarberData = barbers.find((barber) => barber.id === selectedBarber);
+
+    try {
+      await addDoc(collection(db, 'bookings'), {
+        userId: user.uid,
+        userEmail: user.email ?? null,
+        serviceId: selectedService,
+        serviceName: selectedServiceData?.name ?? selectedService,
+        barberId: selectedBarber,
+        barberName: selectedBarberData?.name ?? selectedBarber,
+        date: selectedDate.toISOString().split('T')[0],
+        time: selectedTime,
+        status: 'confirmed',
+        createdAt: serverTimestamp(),
+      });
+
+      toast.success(t('booking.confirmed'), {
+        description: t('booking.saved'),
+      });
+      setTimeout(() => navigate('/home'), 2000);
+    } catch {
+      toast.error(t('booking.saveFailed'));
+    }
   };
 
 
@@ -67,7 +104,7 @@ export function BookingPage() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Book Appointment
+              {t('booking.appointment')}
             </span>
           </h1>
         </div>
@@ -93,10 +130,10 @@ export function BookingPage() {
 
 
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Service</span>
-            <span>Barber</span>
-            <span>Date</span>
-            <span>Time</span>
+            <span>{t('booking.service')}</span>
+            <span>{t('booking.barber')}</span>
+            <span>{t('booking.date')}</span>
+            <span>{t('booking.time')}</span>
           </div>
         </div>
 
@@ -112,7 +149,7 @@ export function BookingPage() {
           >
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
               <Scissors className="w-6 h-6 text-primary" />
-              Select Service
+              {t('booking.selectService')}
             </h2>
             <div className="grid gap-3">
               {services.map((service) => (
@@ -159,7 +196,7 @@ export function BookingPage() {
           >
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
               <Users className="w-6 h-6 text-primary" />
-              Choose Your Barber
+              {t('booking.chooseBarber')}
             </h2>
             <div className="grid gap-3">
               {barbers.map((barber) => (
@@ -212,7 +249,7 @@ export function BookingPage() {
           >
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
               <CalendarIcon className="w-6 h-6 text-primary" />
-              Select Date
+              {t('booking.selectDate')}
             </h2>
             <Card className="p-6 border-primary/20">
               <Calendar
@@ -222,7 +259,11 @@ export function BookingPage() {
                   setSelectedDate(date);
                   if (date) setStep(4);
                 }}
-                disabled={(date) => date < new Date()}
+                disabled={(date) => {
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  return date < today;
+                }}
                 className="rounded-md mx-auto"
               />
             </Card>
@@ -238,12 +279,12 @@ export function BookingPage() {
           >
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
               <Clock className="w-6 h-6 text-primary" />
-              Choose Time
+              {t('booking.chooseTime')}
             </h2>
             <div className="grid grid-cols-3 gap-3">
-              {timeSlots.map((time) => (
+              {timeSlots.map((time, index) => (
                 <motion.div
-                  key={time}
+                  key={`${time}-${index}`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -272,7 +313,7 @@ export function BookingPage() {
                   onClick={confirmBooking}
                   className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-black py-6 text-lg"
                 >
-                  Confirm Booking
+                  {t('booking.confirm')}
                 </Button>
               </motion.div>
             )}

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { translations } from "./translations";
 
 type Lang = "en" | "ar";
@@ -16,10 +16,16 @@ const LanguageContext = createContext<LanguageContextProps>({
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>(() => {
+    const stored = localStorage.getItem("language");
+    return stored === "ar" ? "ar" : "en";
+  });
 
   const changeLanguage = (newLang: Lang) => {
     setLang(newLang);
+    localStorage.setItem("language", newLang);
+    document.documentElement.lang = newLang;
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
   };
 
   const t = (key: string) => {
@@ -31,6 +37,11 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
     return value;
   };
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang]);
 
   return (
     <LanguageContext.Provider value={{ lang, changeLanguage, t }}>

@@ -5,16 +5,17 @@ import { Toaster } from "./components/ui/sonner";
 
 // استيراد LanguageProvider
 import { LanguageProvider } from "./translation/LanguageContex";
-
-import { auth, googleProvider } from "./firebase";
+import { AuthProvider } from "./auth";
 
 function App() {
   return (
     // LanguageProvider يلف كل التطبيق
-    <LanguageProvider>
-      <RouterProvider router={router} />
-      <Toaster />
-    </LanguageProvider>
+    <AuthProvider>
+      <LanguageProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </LanguageProvider>
+    </AuthProvider>
   );
 }
 

@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router';
 import { ArrowLeft, Award, Check, Crown, Gem } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function MembershipPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const memberships = [
     {
@@ -49,7 +51,7 @@ export function MembershipPage() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              VIP Membership
+              {t('membership.title')}
             </span>
           </h1>
         </div>
@@ -57,8 +59,8 @@ export function MembershipPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Choose Your Tier</h2>
-          <p className="text-muted-foreground">Unlock exclusive benefits and premium services</p>
+          <h2 className="text-3xl font-bold mb-4">{t('membership.choose')}</h2>
+          <p className="text-muted-foreground">{t('membership.benefits')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -73,7 +75,7 @@ export function MembershipPage() {
             >
               {membership.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-black px-4 py-1 rounded-full text-sm font-semibold z-10">
-                  Most Popular
+                  {t('membership.popular')}
                 </div>
               )}
               <Card className={`p-8 border-2 transition-all ${
@@ -106,7 +108,7 @@ export function MembershipPage() {
                       : 'bg-card border border-primary/30 hover:bg-primary/10'
                   }`}
                 >
-                  Get Started
+                  {t('membership.getStarted')}
                 </Button>
               </Card>
             </motion.div>
@@ -120,10 +122,10 @@ export function MembershipPage() {
           className="mt-12 text-center"
         >
           <Card className="p-8 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-primary/30">
-            <h3 className="text-xl font-bold mb-2">All Memberships Include</h3>
-            <p className="text-muted-foreground mb-6">Access to loyalty rewards program, exclusive seasonal offers, and premium customer support</p>
+            <h3 className="text-xl font-bold mb-2">{t('membership.includeTitle')}</h3>
+            <p className="text-muted-foreground mb-6">{t('membership.includeDesc')}</p>
             <Button variant="outline" className="border-primary/30 hover:bg-primary/10">
-              Learn More
+              {t('common.learnMore')}
             </Button>
           </Card>
         </motion.div>

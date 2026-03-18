@@ -5,9 +5,15 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
+import { useAuth } from '../auth';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function ProfilePage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { t } = useLanguage();
+  const displayName = user?.displayName || 'User';
+  const email = user?.email || '';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#1a1410] to-[#2a2520]">
@@ -22,7 +28,7 @@ export function ProfilePage() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Profile
+              {t('profile.title')}
             </span>
           </h1>
         </div>
@@ -38,11 +44,11 @@ export function ProfilePage() {
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-4">
               <User className="w-12 h-12 text-primary" />
             </div>
-            <h2 className="text-2xl font-bold mb-1">Guest User</h2>
-            <p className="text-muted-foreground">Premium Member</p>
+            <h2 className="text-2xl font-bold mb-1">{displayName}</h2>
+            <p className="text-muted-foreground">{user ? t('profile.member') : t('profile.guest')}</p>
             <Button className="mt-4 bg-primary hover:bg-primary/90 text-black">
               <Edit className="w-4 h-4 mr-2" />
-              Edit Profile
+              {t('profile.edit')}
             </Button>
           </Card>
         </motion.div>
@@ -50,9 +56,9 @@ export function ProfilePage() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4">
           {[
-            { icon: Calendar, label: 'Bookings', value: '24' },
-            { icon: Award, label: 'Points', value: '250' },
-            { icon: Gift, label: 'Rewards', value: '5' },
+            { icon: Calendar, label: t('profile.bookings'), value: '24' },
+            { icon: Award, label: t('profile.points'), value: '250' },
+            { icon: Gift, label: t('profile.rewards'), value: '5' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -71,31 +77,31 @@ export function ProfilePage() {
 
         {/* Profile Info */}
         <Card className="p-6 border-primary/20">
-          <h3 className="font-semibold text-lg mb-4">Personal Information</h3>
+          <h3 className="font-semibold text-lg mb-4">{t('profile.personal')}</h3>
           <div className="space-y-4">
             <div>
-              <Label>Full Name</Label>
+              <Label>{t('profile.name')}</Label>
               <div className="relative mt-1.5">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
-                <Input className="pl-10 bg-input-background border-primary/20" defaultValue="Guest User" />
+                <Input className="pl-10 bg-input-background border-primary/20" defaultValue={displayName} />
               </div>
             </div>
             <div>
-              <Label>Email</Label>
+              <Label>{t('profile.email')}</Label>
               <div className="relative mt-1.5">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
-                <Input className="pl-10 bg-input-background border-primary/20" defaultValue="guest@example.com" />
+                <Input className="pl-10 bg-input-background border-primary/20" defaultValue={email} />
               </div>
             </div>
             <div>
-              <Label>Phone</Label>
+              <Label>{t('profile.phone')}</Label>
               <div className="relative mt-1.5">
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input className="pl-10 bg-input-background border-primary/20" defaultValue="+1 234 567 8900" />
               </div>
             </div>
             <div>
-              <Label>Location</Label>
+              <Label>{t('profile.location')}</Label>
               <div className="relative mt-1.5">
                 <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input className="pl-10 bg-input-background border-primary/20" defaultValue="New York, NY" />
@@ -103,7 +109,7 @@ export function ProfilePage() {
             </div>
           </div>
           <Button className="w-full mt-6 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-black">
-            Save Changes
+            {t('profile.saveChanges')}
           </Button>
         </Card>
       </div>

@@ -5,15 +5,18 @@ import { ArrowLeft, Heart, Share2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function GalleryPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
+  const galleryTitles = t('gallery.items') as string[];
 
   const gallery = Array.from({ length: 12 }, (_, i) => ({
     id: i + 1,
     image: `https://images.unsplash.com/photo-${['1768363446104-b8a0c1716600', '1767796704750-d685fb2a2143', '1721697989507-fed0b42bb453'][i % 3]}?w=400`,
     likes: Math.floor(Math.random() * 100) + 50,
-    title: ['Classic Fade', 'Beard Grooming', 'Hair Transformation'][i % 3],
+    title: galleryTitles[i % 3],
   }));
 
   return (
@@ -29,7 +32,7 @@ export function GalleryPage() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Customer Gallery
+              {t('gallery.title')}
             </span>
           </h1>
         </div>

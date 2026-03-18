@@ -11,6 +11,10 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '../components/ui/sheet';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useAuth } from '../auth';
+import { useLanguage } from '../translation/LanguageContex';
 
 
 
@@ -18,31 +22,35 @@ export function HomePage() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const { user } = useAuth();
+  const { t } = useLanguage();
+
+  const displayName = user?.displayName || user?.email || 'Guest User';
 
   const quickServices = [
-    { icon: Calendar, title: 'Quick Booking', color: 'from-primary/20 to-primary/10', action: () => navigate('/booking') },
-    { icon: Star, title: 'VIP Offers', color: 'from-accent/20 to-accent/10', action: () => navigate('/offers') },
-    { icon: Sparkles, title: 'Skin Care', color: 'from-secondary/40 to-secondary/20', action: () => navigate('/services') },
-    { icon: Scissors, title: 'Beard Grooming', color: 'from-primary/20 to-primary/10', action: () => navigate('/services') },
-    { icon: TrendingUp, title: 'Hair Treatment', color: 'from-accent/20 to-accent/10', action: () => navigate('/services') },
+    { icon: Calendar, title: t('home.quickBooking'), color: 'from-primary/20 to-primary/10', action: () => navigate('/booking') },
+    { icon: Star, title: t('home.vipOffers'), color: 'from-accent/20 to-accent/10', action: () => navigate('/offers') },
+    { icon: Sparkles, title: t('home.skinCare'), color: 'from-secondary/40 to-secondary/20', action: () => navigate('/services') },
+    { icon: Scissors, title: t('home.beardGrooming'), color: 'from-primary/20 to-primary/10', action: () => navigate('/services') },
+    { icon: TrendingUp, title: t('home.hairTreatment'), color: 'from-accent/20 to-accent/10', action: () => navigate('/services') },
   ];
 
   const mainSections = [
-    { icon: Calendar, title: 'Instant Booking', description: 'Book your appointment now', image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBiYXJiZXIlMjBjdXR0aW5nJTIwaGFpcnxlbnwxfHx8fDE3NzMxNTUwMTh8MA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/booking') },
-    { icon: Scissors, title: 'Available Services', description: 'Explore our premium services', image: 'https://images.unsplash.com/photo-1625038032200-648fbcd800d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBiYXJiZXIlMjB0b29scyUyMHNjaXNzb3JzfGVufDF8fHx8MTc3MzI1NTMxM3ww&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/services') },
-    { icon: Users, title: 'Customer Gallery', description: 'View transformations', image: 'https://images.unsplash.com/photo-1721697989507-fed0b42bb453?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYWlyY3V0JTIwdHJhbnNmb3JtYXRpb24lMjBiZWZvcmUlMjBhZnRlcnxlbnwxfHx8fDE3NzMyNTUzMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/gallery') },
-    { icon: Gift, title: 'Current Offers', description: 'Special deals for you', image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYXJiZXJzaG9wJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzczMjQ1ODc1fDA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/offers') },
-    { icon: Award, title: 'VIP Membership', description: 'Exclusive benefits', image: 'https://images.unsplash.com/photo-1767796704750-d685fb2a2143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBiZWFyZCUyMGdyb29taW5nfGVufDF8fHx8MTc3MzE3NTE2OHww&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/membership') },
+    { icon: Calendar, title: t('home.instantBooking'), description: t('home.instantBookingDesc'), image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBiYXJiZXIlMjBjdXR0aW5nJTIwaGFpcnxlbnwxfHx8fDE3NzMxNTUwMTh8MA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/booking') },
+    { icon: Scissors, title: t('home.availableServices'), description: t('home.availableServicesDesc'), image: 'https://images.unsplash.com/photo-1625038032200-648fbcd800d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBiYXJiZXIlMjB0b29scyUyMHNjaXNzb3JzfGVufDF8fHx8MTc3MzI1NTMxM3ww&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/services') },
+    { icon: Users, title: t('gallery.title'), description: t('home.customerGalleryDesc'), image: 'https://images.unsplash.com/photo-1721697989507-fed0b42bb453?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYWlyY3V0JTIwdHJhbnNmb3JtYXRpb24lMjBiZWZvcmUlMjBhZnRlcnxlbnwxfHx8fDE3NzMyNTUzMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/gallery') },
+    { icon: Gift, title: t('home.currentOffers'), description: t('home.currentOffersDesc'), image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYXJiZXJzaG9wJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzczMjQ1ODc1fDA&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/offers') },
+    { icon: Award, title: t('home.vipMembership'), description: t('home.vipMembershipDesc'), image: 'https://images.unsplash.com/photo-1767796704750-d685fb2a2143?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBiZWFyZCUyMGdyb29taW5nfGVufDF8fHx8MTc3MzE3NTE2OHww&ixlib=rb-4.1.0&q=80&w=1080', action: () => navigate('/membership') },
   ];
 
   const menuItems = [
 
     //{ icon: Settings, title: 'Settings' },
 
-    { icon: Shield, title: 'Privacy Policy' },
-    { icon: HelpCircle, title: 'Help Center' },
-    { icon: Phone, title: 'Contact Support' },
-    { icon: LogOut, title: 'Log Out' },
+    { icon: Shield, title: t('home.privacy'), key: 'privacy' },
+    { icon: HelpCircle, title: t('home.help'), key: 'help' },
+    { icon: Phone, title: t('home.support'), key: 'support' },
+    { icon: LogOut, title: t('home.logout'), key: 'logout' },
   ];
 
   return (
@@ -64,14 +72,19 @@ export function HomePage() {
             </SheetTrigger>
             <SheetContent side="left" className="bg-card border-primary/20">
               <div className="space-y-6 mt-8">
-                <h2 className="text-xl font-bold text-primary">Menu</h2>
+                <h2 className="text-xl font-bold text-primary">{t('home.menu')}</h2>
                 <div className="space-y-2">
                   {menuItems.map((item) => (
                     <Button
-                      key={item.title}
+                      key={item.key}
                       variant="ghost"
                       className="w-full justify-start hover:bg-primary/10"
-                      onClick={() => item.title === 'Log Out' && navigate('/entry')}
+                      onClick={async () => {
+                        if (item.key === 'logout') {
+                          await signOut(auth);
+                          navigate('/entry');
+                        }
+                      }}
                     >
                       <item.icon className="w-5 h-5 mr-3 text-primary" />
                       {item.title}
@@ -120,8 +133,8 @@ export function HomePage() {
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-4">
                     <User className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="font-semibold">Guest User</h3>
-                  <p className="text-sm text-muted-foreground">Premium Member</p>
+                  <h3 className="font-semibold">{displayName}</h3>
+                  <p className="text-sm text-muted-foreground">{user ? t('home.member') : t('home.guest')}</p>
                 </div>
                 <div className="space-y-2">
                   <Button
@@ -130,14 +143,14 @@ export function HomePage() {
                     onClick={() => navigate('/profile')}
                   >
                     <User className="w-5 h-5 mr-3 text-primary" />
-                    Edit Profile
+                    {t('home.editProfile')}
                   </Button>
                   <Button
                     variant="ghost"
                     className="w-full justify-start hover:bg-primary/10"
                   >
                     <Award className="w-5 h-5 mr-3 text-primary" />
-                    Rewards: 250 pts
+                    {t('home.rewards')}: 250 pts
                   </Button>
                   <Button
                     variant="ghost"
@@ -145,14 +158,14 @@ export function HomePage() {
                     onClick={() => navigate('/offers')}
                   >
                     <Gift className="w-5 h-5 mr-3 text-primary" />
-                    Special Offers
+                    {t('home.specialOffers')}
                   </Button>
                   <Button
                     variant="ghost"
                     className="w-full justify-start hover:bg-primary/10"
                   >
                     <Users className="w-5 h-5 mr-3 text-primary" />
-                    Invite Friends
+                    {t('home.inviteFriends')}
                   </Button>
                 </div>
               </div>
@@ -214,7 +227,7 @@ export function HomePage() {
         <div>
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-primary" />
-            Quick Services
+            {t('home.quickServices')}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {quickServices.map((service, index) => (
@@ -252,7 +265,7 @@ export function HomePage() {
         <div>
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            Explore
+            {t('home.explore')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {mainSections.map((section, index) => (

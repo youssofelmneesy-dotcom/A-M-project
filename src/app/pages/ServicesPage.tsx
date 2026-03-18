@@ -5,30 +5,34 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function ServicesPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
+
+  const categories = t('services.categories') as string[];
 
   const services = [
     {
-      category: 'Haircuts',
+      category: categories[0],
       items: [
         {
-          name: 'Classic Haircut',
+          name: t('services.serviceItems.haircut'),
           price: '$35',
           duration: '30 min',
           description: 'Professional haircut with styling',
           image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?w=400',
         },
         {
-          name: 'Premium Fade',
+          name: t('services.serviceItems.premiumFade'),
           price: '$45',
           duration: '40 min',
           description: 'Modern fade with precision detailing',
           image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?w=400',
         },
         {
-          name: 'mullet',
+          name: t('services.serviceItems.mullet'),
           price: '$70',
           duration: '50 min',
           description: 'Professional haircut with styling',
@@ -37,17 +41,17 @@ export function ServicesPage() {
       ],
     },
     {
-      category: 'Beard',
+      category: categories[1],
       items: [
         {
-          name: 'Beard Trim',
+          name: t('services.serviceItems.beardTrim'),
           price: '$25',
           duration: '20 min',
           description: 'Precision beard shaping and trim',
           image: 'https://images.unsplash.com/photo-1767796704750-d685fb2a2143?w=400',
         },
         {
-          name: 'Beard Grooming',
+          name: t('services.serviceItems.beardGrooming'),
           price: '$35',
           duration: '30 min',
           description: 'Complete beard care with hot towel',
@@ -56,17 +60,17 @@ export function ServicesPage() {
       ],
     },
     {
-      category: 'Treatments',
+      category: categories[2],
       items: [
         {
-          name: 'Hair Protein Treatment',
+          name: t('services.serviceItems.protein'),
           price: '$80',
           duration: '60 min',
           description: 'Deep conditioning and strengthening',
           image: 'https://images.unsplash.com/photo-1625038032200-648fbcd800d0?w=400',
         },
         {
-          name: 'Hair Coloring',
+          name: t('services.serviceItems.coloring'),
           price: '$120',
           duration: '90 min',
           description: 'Professional hair coloring service',
@@ -75,17 +79,17 @@ export function ServicesPage() {
       ],
     },
     {
-      category: 'Skincare',
+      category: categories[3],
       items: [
         {
-          name: 'Skin Cleaning',
+          name: t('services.serviceItems.skinCleaning'),
           price: '$60',
           duration: '45 min',
           description: 'Deep facial cleansing and care',
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
         {
-          name: 'Face Care Package',
+          name: t('services.serviceItems.faceCare'),
           price: '$90',
           duration: '60 min',
           description: 'Complete facial treatment',
@@ -94,17 +98,17 @@ export function ServicesPage() {
       ],
     },
     {
-      category: 'VIP',
+      category: categories[4],
       items: [
         {
-          name: 'VIP Grooming Package',
+          name: t('services.serviceItems.vipPackage'),
           price: '$150',
           duration: '120 min',
           description: 'Complete grooming experience',
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
         {
-          name: 'Platinum Package',
+          name: t('services.serviceItems.platinum'),
           price: '$200',
           duration: '150 min',
           description: 'Ultimate luxury grooming',
@@ -128,14 +132,14 @@ export function ServicesPage() {
           </Button>
           <h1 className="text-xl font-bold">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Our Services
+              {t('services.title')}
             </span>
           </h1>
         </div>
       </motion.header>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <Tabs defaultValue="Haircuts" className="space-y-6">
+        <Tabs defaultValue={categories[0]} className="space-y-6">
           <TabsList className="grid w-full grid-cols-5 bg-card/50 border border-primary/20 p-1">
             {services.map((category) => (
               <TabsTrigger
@@ -211,7 +215,7 @@ export function ServicesPage() {
                           className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-black"
                         >
                           <Scissors className="w-4 h-4 mr-2" />
-                          Book Now
+                          {t('common.bookNow')}
                         </Button>
                       </div>
                     </Card>
@@ -231,15 +235,15 @@ export function ServicesPage() {
         >
           <Card className="p-8 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 border-2 border-primary/40 text-center">
             <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-2">First Time Customer?</h3>
+            <h3 className="text-2xl font-bold mb-2">{t('services.firstTime')}</h3>
             <p className="text-muted-foreground mb-4">
-              Get 20% off on your first service
+              {t('services.firstOffer')}
             </p>
             <Button
               onClick={() => navigate('/booking')}
               className="bg-primary hover:bg-primary/90 text-black"
             >
-              Claim Offer
+              {t('common.claim')}
             </Button>
           </Card>
         </motion.div>
