@@ -8,13 +8,13 @@ import { useLanguage } from '../translation/LanguageContex';
 
 export function AdminDashboard() {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   const stats = [
-    { icon: Users, label: 'Total Clients', value: '2,547', change: '+12%', color: 'text-primary' },
-    { icon: Calendar, label: "Today's Bookings", value: '24', change: '+8%', color: 'text-accent' },
-    { icon: DollarSign, label: 'Revenue', value: '$12,450', change: '+15%', color: 'text-primary' },
-    { icon: TrendingUp, label: 'Growth', value: '98%', change: '+5%', color: 'text-accent' },
+    { icon: Users, label: lang === 'ar' ? 'إجمالي العملاء' : 'Total Clients', value: '2,547', change: '+12%', color: 'text-primary' },
+    { icon: Calendar, label: lang === 'ar' ? 'حجوزات اليوم' : "Today's Bookings", value: '24', change: '+8%', color: 'text-accent' },
+    { icon: DollarSign, label: lang === 'ar' ? 'الإيرادات' : 'Revenue', value: '$12,450', change: '+15%', color: 'text-primary' },
+    { icon: TrendingUp, label: lang === 'ar' ? 'النمو' : 'Growth', value: '98%', change: '+5%', color: 'text-accent' },
   ];
 
   const recentBookings = [
@@ -149,11 +149,11 @@ export function AdminDashboard() {
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="p-4 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10">
                   <p className="text-3xl font-bold text-primary">156</p>
-                  <p className="text-sm text-muted-foreground">Services This Week</p>
+                  <p className="text-sm text-muted-foreground">{lang === 'ar' ? 'الخدمات هذا الأسبوع' : 'Services This Week'}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10">
                   <p className="text-3xl font-bold text-accent">$8.2k</p>
-                  <p className="text-sm text-muted-foreground">Weekly Revenue</p>
+                  <p className="text-sm text-muted-foreground">{lang === 'ar' ? 'إيراد الأسبوع' : 'Weekly Revenue'}</p>
                 </div>
               </div>
             </Card>

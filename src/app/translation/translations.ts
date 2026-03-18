@@ -12,6 +12,32 @@ export const translations = {
     splash: {
       brand: "BARBERSHOP",
       subtitle: "Premium Grooming",
+      tagline: "Book Smart, Look Sharp.",
+    },
+
+    route: {
+      checkingSession: "Checking session...",
+    },
+
+    auth: {
+      welcome: "Welcome Back",
+      signIn: "Sign in to your account",
+      email: "Email",
+      password: "Password",
+      rememberMe: "Remember me",
+      forgotPassword: "Forgot password?",
+      logIn: "Log In",
+      noAccount: "Don't have an account?",
+      signUp: "Sign Up",
+      continueWithGoogle: "Continue with Google",
+      continueWithEmail: "Or continue with email",
+      enterEmailFirst: "Please enter your email first.",
+      resetSent: "Password reset email sent. Please check your inbox.",
+      createAccount: "Create Account",
+      joinCommunity: "Join our premium grooming community",
+      signUpWithEmail: "Or sign up with email",
+      fullName: "Full Name",
+      alreadyHaveAccount: "Already have an account?",
     },
 
     language: {
@@ -27,6 +53,7 @@ export const translations = {
       login: "Log In",
       loginDesc: "Access your account",
       disclaimer: "By continuing, you agree to our Terms & Privacy Policy",
+      brandTagline: "Advanced Service... For a Distinguished Look",
     },
 
     home: {
@@ -75,12 +102,27 @@ export const translations = {
         mullet: "Mullet",
         beardTrim: "Beard Trim",
         beardGrooming: "Beard Grooming",
+        combo: "Hair + Beard",
+        styling: "Hair Styling",
         protein: "Hair Protein Treatment",
         coloring: "Hair Coloring",
         skinCleaning: "Skin Cleaning",
         faceCare: "Face Care Package",
         vipPackage: "VIP Grooming Package",
         platinum: "Platinum Package",
+      },
+      descriptions: {
+        haircut: "Professional haircut with styling",
+        premiumFade: "Modern fade with precision detailing",
+        mullet: "Professional haircut with styling",
+        beardTrim: "Precision beard shaping and trim",
+        beardGrooming: "Complete beard care with hot towel",
+        protein: "Deep conditioning and strengthening",
+        coloring: "Professional hair coloring service",
+        skinCleaning: "Deep facial cleansing and care",
+        faceCare: "Complete facial treatment",
+        vipPackage: "Complete grooming experience",
+        platinum: "Ultimate luxury grooming",
       },
     },
 
@@ -173,6 +215,32 @@ export const translations = {
     splash: {
       brand: "صالون الحلاقة",
       subtitle: "عناية فاخرة",
+      tagline: "احجز بذكاء... واطلع بأفضل إطلالة.",
+    },
+
+    route: {
+      checkingSession: "جاري التحقق من الجلسة...",
+    },
+
+    auth: {
+      welcome: "مرحبا بعودتك",
+      signIn: "تسجيل الدخول إلى حسابك",
+      email: "البريد الإلكتروني",
+      password: "كلمة المرور",
+      rememberMe: "تذكرني",
+      forgotPassword: "نسيت كلمة المرور؟",
+      logIn: "تسجيل الدخول",
+      noAccount: "ليس لديك حساب؟",
+      signUp: "سجل الآن",
+      continueWithGoogle: "المتابعة باستخدام Google",
+      continueWithEmail: "أو أكمل باستخدام البريد الإلكتروني",
+      enterEmailFirst: "من فضلك أدخل بريدك الإلكتروني أولاً.",
+      resetSent: "تم إرسال رسالة إعادة تعيين كلمة المرور. راجع بريدك.",
+      createAccount: "إنشاء حساب",
+      joinCommunity: "انضم إلى مجتمع العناية المميز",
+      signUpWithEmail: "أو أنشئ الحساب بالبريد الإلكتروني",
+      fullName: "الاسم الكامل",
+      alreadyHaveAccount: "لديك حساب بالفعل؟",
     },
 
     language: {
@@ -188,6 +256,7 @@ export const translations = {
       login: "تسجيل الدخول",
       loginDesc: "ادخل إلى حسابك",
       disclaimer: "بمتابعة الاستخدام، أنت توافق على الشروط وسياسة الخصوصية",
+      brandTagline: "خدمة متقدمة... لإطلالة مميزة",
     },
 
     home: {
@@ -236,12 +305,27 @@ export const translations = {
         mullet: "موليت",
         beardTrim: "تهذيب اللحية",
         beardGrooming: "العناية باللحية",
+        combo: "شعر + لحية",
+        styling: "تصفيف الشعر",
         protein: "علاج بروتين للشعر",
         coloring: "صبغة الشعر",
         skinCleaning: "تنظيف البشرة",
         faceCare: "باقة العناية بالوجه",
         vipPackage: "باقة VIP للعناية",
         platinum: "باقة بلاتينيوم",
+      },
+      descriptions: {
+        haircut: "قصّة احترافية مع تصفيف",
+        premiumFade: "تدريج عصري بدقة عالية",
+        mullet: "قصّة احترافية مع تصفيف",
+        beardTrim: "تهذيب دقيق وتحديد للحية",
+        beardGrooming: "عناية كاملة باللحية مع منشفة ساخنة",
+        protein: "ترطيب عميق وتقوية للشعر",
+        coloring: "خدمة صبغة شعر احترافية",
+        skinCleaning: "تنظيف عميق وعناية بالبشرة",
+        faceCare: "علاج متكامل للوجه",
+        vipPackage: "تجربة عناية متكاملة",
+        platinum: "أقصى مستوى من العناية الفاخرة",
       },
     },
 

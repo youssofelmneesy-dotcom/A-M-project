@@ -9,7 +9,7 @@ import { useLanguage } from '../translation/LanguageContex';
 
 export function ServicesPage() {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   const categories = t('services.categories') as string[];
 
@@ -20,22 +20,22 @@ export function ServicesPage() {
         {
           name: t('services.serviceItems.haircut'),
           price: '$35',
-          duration: '30 min',
-          description: 'Professional haircut with styling',
+          duration: lang === 'ar' ? '30 دقيقة' : '30 min',
+          description: t('services.descriptions.haircut'),
           image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?w=400',
         },
         {
           name: t('services.serviceItems.premiumFade'),
           price: '$45',
-          duration: '40 min',
-          description: 'Modern fade with precision detailing',
+          duration: lang === 'ar' ? '40 دقيقة' : '40 min',
+          description: t('services.descriptions.premiumFade'),
           image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?w=400',
         },
         {
           name: t('services.serviceItems.mullet'),
           price: '$70',
-          duration: '50 min',
-          description: 'Professional haircut with styling',
+          duration: lang === 'ar' ? '50 دقيقة' : '50 min',
+          description: t('services.descriptions.mullet'),
           image: 'https://images.unsplash.com/photo-1768363446104-b8a0c1716600?w=400',
         },
       ],
@@ -46,15 +46,15 @@ export function ServicesPage() {
         {
           name: t('services.serviceItems.beardTrim'),
           price: '$25',
-          duration: '20 min',
-          description: 'Precision beard shaping and trim',
+          duration: lang === 'ar' ? '20 دقيقة' : '20 min',
+          description: t('services.descriptions.beardTrim'),
           image: 'https://images.unsplash.com/photo-1767796704750-d685fb2a2143?w=400',
         },
         {
           name: t('services.serviceItems.beardGrooming'),
           price: '$35',
-          duration: '30 min',
-          description: 'Complete beard care with hot towel',
+          duration: lang === 'ar' ? '30 دقيقة' : '30 min',
+          description: t('services.descriptions.beardGrooming'),
           image: 'https://images.unsplash.com/photo-1767796704750-d685fb2a2143?w=400',
         },
       ],
@@ -65,15 +65,15 @@ export function ServicesPage() {
         {
           name: t('services.serviceItems.protein'),
           price: '$80',
-          duration: '60 min',
-          description: 'Deep conditioning and strengthening',
+          duration: lang === 'ar' ? '60 دقيقة' : '60 min',
+          description: t('services.descriptions.protein'),
           image: 'https://images.unsplash.com/photo-1625038032200-648fbcd800d0?w=400',
         },
         {
           name: t('services.serviceItems.coloring'),
           price: '$120',
-          duration: '90 min',
-          description: 'Professional hair coloring service',
+          duration: lang === 'ar' ? '90 دقيقة' : '90 min',
+          description: t('services.descriptions.coloring'),
           image: 'https://images.unsplash.com/photo-1625038032200-648fbcd800d0?w=400',
         },
       ],
@@ -84,15 +84,15 @@ export function ServicesPage() {
         {
           name: t('services.serviceItems.skinCleaning'),
           price: '$60',
-          duration: '45 min',
-          description: 'Deep facial cleansing and care',
+          duration: lang === 'ar' ? '45 دقيقة' : '45 min',
+          description: t('services.descriptions.skinCleaning'),
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
         {
           name: t('services.serviceItems.faceCare'),
           price: '$90',
-          duration: '60 min',
-          description: 'Complete facial treatment',
+          duration: lang === 'ar' ? '60 دقيقة' : '60 min',
+          description: t('services.descriptions.faceCare'),
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
       ],
@@ -103,15 +103,15 @@ export function ServicesPage() {
         {
           name: t('services.serviceItems.vipPackage'),
           price: '$150',
-          duration: '120 min',
-          description: 'Complete grooming experience',
+          duration: lang === 'ar' ? '120 دقيقة' : '120 min',
+          description: t('services.descriptions.vipPackage'),
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
         {
           name: t('services.serviceItems.platinum'),
           price: '$200',
-          duration: '150 min',
-          description: 'Ultimate luxury grooming',
+          duration: lang === 'ar' ? '150 دقيقة' : '150 min',
+          description: t('services.descriptions.platinum'),
           image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?w=400',
         },
       ],

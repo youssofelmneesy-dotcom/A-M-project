@@ -71,7 +71,7 @@ export function EntryScreen() {
             </span>
           </h1>
           <p className="text-muted-foreground text-sm tracking-wider uppercase">
-            Advanced Service... For a Distinguished Look 💈✂️ .
+            {t('entry.brandTagline')} 💈✂️
           </p>
         </motion.div>
 

@@ -9,10 +9,11 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { useLanguage } from "../translation/LanguageContex";
 
 export function SignUpPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -59,10 +60,10 @@ export function SignUpPage() {
           <div className="text-center mb-8">
             <motion.h1 className="text-3xl font-bold mb-2" initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                Create Account
+                {t("auth.createAccount")}
               </span>
             </motion.h1>
-            <p className="text-muted-foreground">Join our premium grooming community</p>
+            <p className="text-muted-foreground">{t("auth.joinCommunity")}</p>
           </div>
 
 
@@ -72,7 +73,7 @@ export function SignUpPage() {
           <div className="space-y-3 mb-6">
             <Button className="w-full bg-white text-black" onClick={handleGoogleSignIn}>
               <Chrome className="w-5 h-5 mr-2" />
-              Continue with Google
+              {t("auth.continueWithGoogle")}
             </Button>
           </div>
 
@@ -84,7 +85,7 @@ export function SignUpPage() {
               <div className="w-full border-t border-primary/20" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or sign up with email</span>
+                <span className="bg-background px-2 text-muted-foreground">{t("auth.signUpWithEmail")}</span>
             </div>
           </div>
 
@@ -96,7 +97,7 @@ export function SignUpPage() {
             <form className="space-y-4">
               {/* Full Name */}
               <div>
-                <Label htmlFor="fullName">Full Name *</Label>
+                <Label htmlFor="fullName">{t("auth.fullName")} *</Label>
                 <div className="relative mt-1.5">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                   <Input
@@ -112,7 +113,7 @@ export function SignUpPage() {
 
               {/* Email */}
               <div>
-                <Label htmlFor="email">Email *</Label>
+                <Label htmlFor="email">{t("auth.email")} *</Label>
                 <div className="relative mt-1.5">
                   <Input
                     id="email"
@@ -127,7 +128,7 @@ export function SignUpPage() {
 
               {/* Password */}
               <div>
-                <Label htmlFor="password">Password *</Label>
+                <Label htmlFor="password">{t("auth.password")} *</Label>
                 <div className="relative mt-1.5">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                   <Input
@@ -142,7 +143,7 @@ export function SignUpPage() {
 
 
               <Button type="button" onClick={handleSignUp} className="w-full mt-6">
-                Create Account
+                {t("auth.createAccount")}
               </Button>
             </form>
           </Card>
@@ -153,9 +154,9 @@ export function SignUpPage() {
           {/* Footer */}
           <div className="text-center mt-6">
             <p>
-              Already have an account?{" "}
+              {t("auth.alreadyHaveAccount")}{" "}
               <button onClick={() => navigate("/login")} className="text-primary hover:underline">
-                Log In
+                {t("auth.logIn")}
               </button>
             </p>
           </div>

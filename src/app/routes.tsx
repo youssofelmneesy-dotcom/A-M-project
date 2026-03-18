@@ -14,13 +14,16 @@ import { OffersPage } from "./pages/OffersPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { useAuth } from "./auth";
+import { useLanguage } from "./translation/LanguageContex";
 
 function AuthLoadingScreen() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#1a1410] to-[#2a2520] flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <div className="w-10 h-10 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
-        <p className="text-sm text-muted-foreground">Checking session...</p>
+        <p className="text-sm text-muted-foreground">{t("route.checkingSession")}</p>
       </div>
     </div>
   );

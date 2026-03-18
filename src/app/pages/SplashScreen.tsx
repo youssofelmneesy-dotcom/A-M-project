@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { Scissors } from 'lucide-react';
+import { useLanguage } from '../translation/LanguageContex';
 
 export function SplashScreen() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -136,7 +138,7 @@ export function SplashScreen() {
               ease: "easeInOut",
             }}
           >
-            Book Smart, Look Sharp.
+            {t('splash.tagline')}
           </motion.p>
         </motion.div>
 

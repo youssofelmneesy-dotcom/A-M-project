@@ -15,7 +15,7 @@ import { useLanguage } from '../translation/LanguageContex';
 export function BookingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState('');
   const [selectedBarber, setSelectedBarber] = useState('');
@@ -25,17 +25,17 @@ export function BookingPage() {
   const services = [
     { id: 'haircut', name: t('services.serviceItems.haircut'), price: '$35', duration: '30 min' },
     { id: 'beard', name: t('services.serviceItems.beardTrim'), price: '$25', duration: '20 min' },
-    { id: 'combo', name: 'Hair + Beard', price: '$55', duration: '50 min' },
-    { id: 'styling', name: 'Hair Styling', price: '$45', duration: '40 min' },
+    { id: 'combo', name: t('services.serviceItems.combo'), price: '$55', duration: '50 min' },
+    { id: 'styling', name: t('services.serviceItems.styling'), price: '$45', duration: '40 min' },
     { id: 'treatment', name: t('services.serviceItems.protein'), price: '$80', duration: '60 min' },
     { id: 'coloring', name: t('services.serviceItems.coloring'), price: '$120', duration: '90 min' },
   ];
 
   const barbers = [
-    { id: '1', name: 'Michael Stone', rating: 4.9, experience: '10 years' },
-    { id: '2', name: 'David Crown', rating: 4.8, experience: '8 years' },
-    { id: '3', name: 'Alex Knight', rating: 4.9, experience: '12 years' },
-    { id: '4', name: 'James Royal', rating: 4.7, experience: '6 years' },
+    { id: '1', name: 'Michael Stone', rating: 4.9, experience: lang === 'ar' ? '10 سنوات' : '10 years' },
+    { id: '2', name: 'David Crown', rating: 4.8, experience: lang === 'ar' ? '8 سنوات' : '8 years' },
+    { id: '3', name: 'Alex Knight', rating: 4.9, experience: lang === 'ar' ? '12 سنة' : '12 years' },
+    { id: '4', name: 'James Royal', rating: 4.7, experience: lang === 'ar' ? '6 سنوات' : '6 years' },
   ];
 
 

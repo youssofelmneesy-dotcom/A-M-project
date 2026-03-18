@@ -8,35 +8,63 @@ import { useLanguage } from '../translation/LanguageContex';
 
 export function MembershipPage() {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
-  const memberships = [
-    {
-      name: 'Silver',
-      icon: Award,
-      price: '$29',
-      period: '/month',
-      color: 'from-gray-400 to-gray-600',
-      benefits: ['10% off all services', 'Priority booking', '1 free haircut/month', 'Birthday special'],
-    },
-    {
-      name: 'Gold',
-      icon: Crown,
-      price: '$49',
-      period: '/month',
-      color: 'from-primary to-yellow-600',
-      popular: true,
-      benefits: ['20% off all services', 'VIP priority booking', '2 free services/month', 'Exclusive offers', 'Free beard trim'],
-    },
-    {
-      name: 'Platinum',
-      icon: Gem,
-      price: '$99',
-      period: '/month',
-      color: 'from-accent to-white',
-      benefits: ['30% off all services', 'Ultimate priority', 'Unlimited basic cuts', 'Personal barber', 'All premium services', 'Complimentary products'],
-    },
-  ];
+  const memberships = lang === 'ar'
+    ? [
+        {
+          name: 'فضية',
+          icon: Award,
+          price: '$29',
+          period: '/شهريًا',
+          color: 'from-gray-400 to-gray-600',
+          benefits: ['خصم 10% على كل الخدمات', 'أولوية في الحجز', 'قصّة مجانية شهريًا', 'هدية عيد ميلاد'],
+        },
+        {
+          name: 'ذهبية',
+          icon: Crown,
+          price: '$49',
+          period: '/شهريًا',
+          color: 'from-primary to-yellow-600',
+          popular: true,
+          benefits: ['خصم 20% على كل الخدمات', 'أولوية VIP', 'خدمتان مجانيتان شهريًا', 'عروض حصرية', 'تهذيب لحية مجاني'],
+        },
+        {
+          name: 'بلاتينيوم',
+          icon: Gem,
+          price: '$99',
+          period: '/شهريًا',
+          color: 'from-accent to-white',
+          benefits: ['خصم 30% على كل الخدمات', 'أولوية قصوى', 'قصات أساسية غير محدودة', 'حلاق شخصي', 'كل الخدمات المميزة', 'منتجات مجانية'],
+        },
+      ]
+    : [
+        {
+          name: 'Silver',
+          icon: Award,
+          price: '$29',
+          period: '/month',
+          color: 'from-gray-400 to-gray-600',
+          benefits: ['10% off all services', 'Priority booking', '1 free haircut/month', 'Birthday special'],
+        },
+        {
+          name: 'Gold',
+          icon: Crown,
+          price: '$49',
+          period: '/month',
+          color: 'from-primary to-yellow-600',
+          popular: true,
+          benefits: ['20% off all services', 'VIP priority booking', '2 free services/month', 'Exclusive offers', 'Free beard trim'],
+        },
+        {
+          name: 'Platinum',
+          icon: Gem,
+          price: '$99',
+          period: '/month',
+          color: 'from-accent to-white',
+          benefits: ['30% off all services', 'Ultimate priority', 'Unlimited basic cuts', 'Personal barber', 'All premium services', 'Complimentary products'],
+        },
+      ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#1a1410] to-[#2a2520]">

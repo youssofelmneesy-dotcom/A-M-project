@@ -12,33 +12,6 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } f
 import { useLanguage } from '../translation/LanguageContex';
 
 
-// ترجمات الموقع بالإنجليزي والعربي
-const translations = {
-  en: {
-    welcome: "Welcome Back",
-    signIn: "Sign in to your account",
-    email: "Email",
-    password: "Password",
-    rememberMe: "Remember me",
-    forgotPassword: "Forgot password?",
-    logIn: "Log In",
-    noAccount: "Don't have an account?",
-    signUp: "Sign Up"
-  },
-  ar: {
-    welcome: "مرحبا بعودتك",
-    signIn: "تسجيل الدخول إلى حسابك",
-    email: "البريد الإلكتروني",
-    password: "كلمة المرور",
-    rememberMe: "تذكرني",
-    forgotPassword: "نسيت كلمة المرور؟",
-    logIn: "تسجيل الدخول",
-    noAccount: "ليس لديك حساب؟",
-    signUp: "سجل الآن"
-  },
-};
-
-
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -46,8 +19,7 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { lang } = useLanguage();
-  const t = translations[lang];
+  const { t } = useLanguage();
 
   const handleEmailLogin = async () => {
     try {
@@ -69,13 +41,13 @@ export function LoginPage() {
 
   const handleResetPassword = async () => {
     if (!email) {
-      setError('Please enter your email first.');
+      setError(t('auth.enterEmailFirst'));
       return;
     }
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setError('Password reset email sent. Please check your inbox.');
+      setError(t('auth.resetSent'));
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -97,10 +69,10 @@ export function LoginPage() {
         <div className="text-center mb-8">
           <motion.h1 className="text-3xl font-bold mb-2" initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              {t.welcome}
+              {t('auth.welcome')}
             </span>
           </motion.h1>
-          <p className="text-muted-foreground">{t.signIn}</p>
+          <p className="text-muted-foreground">{t('auth.signIn')}</p>
         </div>
 
 
@@ -111,7 +83,7 @@ export function LoginPage() {
             onClick={handleGoogleLogin}
           >
             <Chrome className="w-5 h-5 mr-2 relative z-10" />
-            <span className="relative z-10">Continue with Google</span>
+            <span className="relative z-10">{t('auth.continueWithGoogle')}</span>
           </Button>
           
         </div>
@@ -122,7 +94,7 @@ export function LoginPage() {
             <div className="w-full border-t border-primary/20" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or continue with email</span>
+            <span className="bg-background px-2 text-muted-foreground">{t('auth.continueWithEmail')}</span>
           </div>
         </div>
 
@@ -131,7 +103,7 @@ export function LoginPage() {
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <form className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-foreground">{t.email}</Label>
+              <Label htmlFor="email" className="text-foreground">{t('auth.email')}</Label>
               <div className="relative mt-1.5">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input
@@ -146,7 +118,7 @@ export function LoginPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-foreground">{t.password}</Label>
+              <Label htmlFor="password" className="text-foreground">{t('auth.password')}</Label>
               <div className="relative mt-1.5">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/50" />
                 <Input
@@ -163,10 +135,10 @@ export function LoginPage() {
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="rounded border-primary/30" />
-                <span className="text-muted-foreground">{t.rememberMe}</span>
+                <span className="text-muted-foreground">{t('auth.rememberMe')}</span>
               </label>
               <button type="button" className="text-primary hover:underline" onClick={handleResetPassword}>
-                {t.forgotPassword}
+                {t('auth.forgotPassword')}
               </button>
             </div>
 
@@ -175,7 +147,7 @@ export function LoginPage() {
               onClick={handleEmailLogin}
               className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground mt-6"
             >
-              {t.logIn}
+              {t('auth.logIn')}
             </Button>
           </form>
         </Card>
@@ -184,12 +156,12 @@ export function LoginPage() {
         {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-sm text-muted-foreground">
-            {t.noAccount}{' '}
+            {t('auth.noAccount')}{' '}
             <button
               onClick={() => navigate('/signup')}
               className="text-primary hover:underline font-medium"
             >
-              {t.signUp}
+              {t('auth.signUp')}
             </button>
           </p>
         </div>

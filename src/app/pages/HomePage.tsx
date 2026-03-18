@@ -23,9 +23,9 @@ export function HomePage() {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
-  const displayName = user?.displayName || user?.email || 'Guest User';
+  const displayName = user?.displayName || user?.email || t('home.guest');
 
   const quickServices = [
     { icon: Calendar, title: t('home.quickBooking'), color: 'from-primary/20 to-primary/10', action: () => navigate('/booking') },
@@ -150,7 +150,7 @@ export function HomePage() {
                     className="w-full justify-start hover:bg-primary/10"
                   >
                     <Award className="w-5 h-5 mr-3 text-primary" />
-                    {t('home.rewards')}: 250 pts
+                    {t('home.rewards')}: 250 {lang === 'ar' ? 'نقطة' : 'pts'}
                   </Button>
                   <Button
                     variant="ghost"
