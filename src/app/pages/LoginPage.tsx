@@ -7,9 +7,8 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
-import { auth, googleProvider } from '../firebase'; // Firebase imports
-import { sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useLanguage } from '../translation/LanguageContex';
+import { useAuth } from '../auth';
 
 
 
@@ -20,10 +19,11 @@ export function LoginPage() {
   const [error, setError] = useState('');
 
   const { t } = useLanguage();
+  const { login } = useAuth();
 
   const handleEmailLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login({ email, password });
       navigate('/home'); // بعد تسجيل الدخول بنجاح
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -31,26 +31,11 @@ export function LoginPage() {
   };
 
   const handleGoogleLogin = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      navigate('/home');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
+    setError(t('auth.googleUnavailable'));
   };
 
   const handleResetPassword = async () => {
-    if (!email) {
-      setError(t('auth.enterEmailFirst'));
-      return;
-    }
-
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setError(t('auth.resetSent'));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
+    setError(t('auth.resetNotAvailable'));
   };
 
 

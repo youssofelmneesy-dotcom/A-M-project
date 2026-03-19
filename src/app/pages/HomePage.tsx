@@ -11,8 +11,6 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '../components/ui/sheet';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
 import { useAuth } from '../auth';
 import { useLanguage } from '../translation/LanguageContex';
 
@@ -22,10 +20,10 @@ export function HomePage() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { lang, t } = useLanguage();
 
-  const displayName = user?.displayName || user?.email || t('home.guest');
+  const displayName = user?.fullName || user?.email || t('home.guest');
 
   const quickServices = [
     { icon: Calendar, title: t('home.quickBooking'), color: 'from-primary/20 to-primary/10', action: () => navigate('/booking') },
@@ -81,7 +79,7 @@ export function HomePage() {
                       className="w-full justify-start hover:bg-primary/10"
                       onClick={async () => {
                         if (item.key === 'logout') {
-                          await signOut(auth);
+                          logout();
                           navigate('/entry');
                         }
                       }}

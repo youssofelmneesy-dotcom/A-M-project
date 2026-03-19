@@ -12,7 +12,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { t } = useLanguage();
-  const displayName = user?.displayName || 'User';
+  const displayName = user?.fullName || 'User';
   const email = user?.email || '';
 
   return (

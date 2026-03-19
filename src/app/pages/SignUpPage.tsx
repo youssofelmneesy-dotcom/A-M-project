@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { User, Lock, Chrome } from "lucide-react";
-import { auth, googleProvider } from "../firebase"; // ملف firebase.js اللي انت عاملُه
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { useLanguage } from "../translation/LanguageContex";
+import { useAuth } from "../auth";
 
 export function SignUpPage() {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { register } = useAuth();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -30,9 +30,11 @@ export function SignUpPage() {
   // Sign up with Email/Password
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      // ممكن تخزن بيانات إضافية في Firestore بعد كده لو حابب
-      console.log("User created:", userCredential.user);
+      await register({
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      });
       navigate("/home");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -43,13 +45,7 @@ export function SignUpPage() {
 
   // Sign in with Google
   const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Signed in with Google:", result.user);
-      navigate("/home");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
+    setError(t("auth.googleUnavailable"));
   };
 
   return (

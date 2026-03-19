@@ -33,11 +33,13 @@ export const translations = {
       continueWithEmail: "Or continue with email",
       enterEmailFirst: "Please enter your email first.",
       resetSent: "Password reset email sent. Please check your inbox.",
+      resetNotAvailable: "Password reset is not available yet in backend mode.",
       createAccount: "Create Account",
       joinCommunity: "Join our premium grooming community",
       signUpWithEmail: "Or sign up with email",
       fullName: "Full Name",
       alreadyHaveAccount: "Already have an account?",
+      googleUnavailable: "Google login is not available in backend mode right now.",
     },
 
     language: {
@@ -188,6 +190,7 @@ export const translations = {
       confirmed: "Booking confirmed! Check your calendar.",
       saved: "Your appointment has been saved.",
       saveFailed: "Unable to save booking right now. Please try again.",
+      loadDataFailed: "Unable to load barbers and services right now.",
     },
 
     admin: {
@@ -236,11 +239,13 @@ export const translations = {
       continueWithEmail: "أو أكمل باستخدام البريد الإلكتروني",
       enterEmailFirst: "من فضلك أدخل بريدك الإلكتروني أولاً.",
       resetSent: "تم إرسال رسالة إعادة تعيين كلمة المرور. راجع بريدك.",
+      resetNotAvailable: "إعادة تعيين كلمة المرور غير متاحة حاليًا في وضع الباك إند.",
       createAccount: "إنشاء حساب",
       joinCommunity: "انضم إلى مجتمع العناية المميز",
       signUpWithEmail: "أو أنشئ الحساب بالبريد الإلكتروني",
       fullName: "الاسم الكامل",
       alreadyHaveAccount: "لديك حساب بالفعل؟",
+      googleUnavailable: "تسجيل Google غير متاح حاليًا في وضع الباك إند.",
     },
 
     language: {
@@ -391,6 +396,7 @@ export const translations = {
       confirmed: "تم تأكيد الحجز! راجع التقويم.",
       saved: "تم حفظ موعدك بنجاح.",
       saveFailed: "تعذر حفظ الحجز الآن. حاول مرة أخرى.",
+      loadDataFailed: "تعذر تحميل بيانات الحلاقين والخدمات الآن.",
     },
 
     admin: {

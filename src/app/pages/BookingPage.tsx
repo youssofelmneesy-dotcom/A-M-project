@@ -1,42 +1,45 @@
 
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, Scissors, Users, Calendar as CalendarIcon, Clock, Check } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Calendar } from '../components/ui/calendar';
 import { toast } from 'sonner';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../firebase';
 import { useAuth } from '../auth';
 import { useLanguage } from '../translation/LanguageContex';
+import { apiGet, apiPost } from '../api/client';
+import { Barber, Service } from '../api/types';
 
 export function BookingPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { lang, t } = useLanguage();
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState('');
   const [selectedBarber, setSelectedBarber] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState('');
+  const [services, setServices] = useState<Service[]>([]);
+  const [barbers, setBarbers] = useState<Barber[]>([]);
 
-  const services = [
-    { id: 'haircut', name: t('services.serviceItems.haircut'), price: '$35', duration: '30 min' },
-    { id: 'beard', name: t('services.serviceItems.beardTrim'), price: '$25', duration: '20 min' },
-    { id: 'combo', name: t('services.serviceItems.combo'), price: '$55', duration: '50 min' },
-    { id: 'styling', name: t('services.serviceItems.styling'), price: '$45', duration: '40 min' },
-    { id: 'treatment', name: t('services.serviceItems.protein'), price: '$80', duration: '60 min' },
-    { id: 'coloring', name: t('services.serviceItems.coloring'), price: '$120', duration: '90 min' },
-  ];
+  useEffect(() => {
+    async function loadBookingData() {
+      try {
+        const [barbersData, servicesData] = await Promise.all([
+          apiGet<Barber[]>('/barbers'),
+          apiGet<Service[]>('/services'),
+        ]);
+        setBarbers(barbersData);
+        setServices(servicesData);
+      } catch {
+        toast.error(t('booking.loadDataFailed'));
+      }
+    }
 
-  const barbers = [
-    { id: '1', name: 'Michael Stone', rating: 4.9, experience: lang === 'ar' ? '10 سنوات' : '10 years' },
-    { id: '2', name: 'David Crown', rating: 4.8, experience: lang === 'ar' ? '8 سنوات' : '8 years' },
-    { id: '3', name: 'Alex Knight', rating: 4.9, experience: lang === 'ar' ? '12 سنة' : '12 years' },
-    { id: '4', name: 'James Royal', rating: 4.7, experience: lang === 'ar' ? '6 سنوات' : '6 years' },
-  ];
+    loadBookingData();
+  }, [t]);
 
 
 
@@ -62,22 +65,17 @@ export function BookingPage() {
       return;
     }
 
-    const selectedServiceData = services.find((service) => service.id === selectedService);
-    const selectedBarberData = barbers.find((barber) => barber.id === selectedBarber);
+    const selectedServiceData = services.find((service) => service._id === selectedService);
+    const selectedBarberData = barbers.find((barber) => barber._id === selectedBarber);
 
     try {
-      await addDoc(collection(db, 'bookings'), {
-        userId: user.uid,
-        userEmail: user.email ?? null,
+      await apiPost('/bookings', {
         serviceId: selectedService,
-        serviceName: selectedServiceData?.name ?? selectedService,
         barberId: selectedBarber,
-        barberName: selectedBarberData?.name ?? selectedBarber,
         date: selectedDate.toISOString().split('T')[0],
         time: selectedTime,
-        status: 'confirmed',
-        createdAt: serverTimestamp(),
-      });
+        notes: `${selectedServiceData?.name ?? ''} / ${selectedBarberData?.name ?? ''}`.trim(),
+      }, token || undefined);
 
       toast.success(t('booking.confirmed'), {
         description: t('booking.saved'),
@@ -154,28 +152,30 @@ export function BookingPage() {
             <div className="grid gap-3">
               {services.map((service) => (
                 <motion.div
-                  key={service.id}
+                  key={service._id}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Card
                     className={`p-4 cursor-pointer transition-all ${
-                      selectedService === service.id
+                      selectedService === service._id
                         ? 'border-primary bg-primary/10'
                         : 'border-primary/20 hover:border-primary/40'
                     }`}
                     onClick={() => {
-                      setSelectedService(service.id);
+                      setSelectedService(service._id);
                       setStep(2);
                     }}
                   >
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold">{service.name}</h3>
-                        <p className="text-sm text-muted-foreground">{service.duration}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {service.durationMinutes} {lang === 'ar' ? 'دقيقة' : 'min'}
+                        </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xl font-bold text-primary">{service.price}</p>
+                        <p className="text-xl font-bold text-primary">${service.price}</p>
                       </div>
                     </div>
                   </Card>
@@ -201,18 +201,18 @@ export function BookingPage() {
             <div className="grid gap-3">
               {barbers.map((barber) => (
                 <motion.div
-                  key={barber.id}
+                  key={barber._id}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Card
                     className={`p-4 cursor-pointer transition-all ${
-                      selectedBarber === barber.id
+                      selectedBarber === barber._id
                         ? 'border-primary bg-primary/10'
                         : 'border-primary/20 hover:border-primary/40'
                     }`}
                     onClick={() => {
-                      setSelectedBarber(barber.id);
+                      setSelectedBarber(barber._id);
                       setStep(3);
                     }}
                   >
@@ -222,7 +222,9 @@ export function BookingPage() {
                       </div>
                       <div className="flex-1">
                         <h3 className="font-semibold">{barber.name}</h3>
-                        <p className="text-sm text-muted-foreground">{barber.experience}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {barber.experienceYears} {lang === 'ar' ? 'سنة' : 'years'}
+                        </p>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center gap-1">
